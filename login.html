@@ -74,7 +74,7 @@
             position: relative;
             padding: 100px 0 60px;
             background: linear-gradient(180deg, 
-                var(--modern-gray) 0%,
+                var(--modern-darker) 0%,
                 rgba(15, 15, 20, 0.95) 100%);
             overflow: hidden;
         }
@@ -1042,6 +1042,10 @@
                     </div>
 
                     <form id="loginFormSubmit">
+                        <?php 
+                        require_once 'config/csrf.php';
+                        echo CSRFProtection::getTokenField();
+                        ?>
                         <div class="modern-form-group">
                             <label class="modern-form-label" for="loginEmail">
                                 Email ou Téléphone <span>*</span>
@@ -1100,6 +1104,10 @@
                     </div>
 
                     <form id="signupFormSubmit">
+                        <?php 
+                        require_once 'config/csrf.php';
+                        echo CSRFProtection::getTokenField();
+                        ?>
                         <div class="modern-form-group">
                             <label class="modern-form-label" for="signupFullName">
                                 Nom Complet <span>*</span>
@@ -1353,35 +1361,61 @@
             const loginFormSubmit = document.getElementById('loginFormSubmit');
             const signupFormSubmit = document.getElementById('signupFormSubmit');
 
-            loginFormSubmit.addEventListener('submit', function(e) {
+            loginFormSubmit.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
-                const email = document.getElementById('loginEmail').value;
-                const password = document.getElementById('loginPassword').value;
+                const emailInput = document.getElementById('loginEmail');
+                const passwordInput = document.getElementById('loginPassword');
+                const emailError = document.getElementById('emailError');
+                const passwordError = document.getElementById('passwordError');
                 
-                // Simple validation
-                if (!email || !password) {
-                    showNotification('Veuillez remplir tous les champs obligatoires.', 'error');
+                // Clear previous errors
+                emailError.textContent = '';
+                passwordError.textContent = '';
+                
+                // Validate email
+                const emailPattern = /(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)|(^\+213[567][0-9]{8}$|^0[567][0-9]{8}$)/;
+                if (!emailPattern.test(emailInput.value)) {
+                    emailError.textContent = 'Email ou numéro algérien invalide';
                     return;
                 }
                 
-                // Simulate login process
-                const submitBtn = this.querySelector('.modern-submit-btn');
-                const originalText = submitBtn.innerHTML;
+                // Validate password
+                const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                if (!passwordPattern.test(passwordInput.value)) {
+                    passwordError.textContent = 'Mot de passe invalide (8 caractères min, majuscule, minuscule, chiffre, caractère spécial)';
+                    return;
+                }
                 
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion en cours...';
-                submitBtn.disabled = true;
+                const formData = {
+                    email: emailInput.value,
+                    password: passwordInput.value,
+                    rememberMe: document.getElementById('rememberMe').checked
+                };
                 
-                // Simulate API call
-                setTimeout(() => {
-                    showNotification('Connexion réussie ! Bienvenue dans votre espace sous-traitant.', 'success');
+                try {
+                    const response = await fetch('api/login.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
                     
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
+                    const result = await response.json();
                     
-                    // Reset form
-                    loginFormSubmit.reset();
-                }, 1500);
+                    if (result.success) {
+                        showNotification('Connexion réussie ! Redirection en cours...', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 1500);
+                    } else {
+                        showNotification(result.message || 'Erreur de connexion', 'error');
+                    }
+                } catch (error) {
+                    showNotification('Erreur de connexion au serveur', 'error');
+                    console.error('Login error:', error);
+                }
             });
 
             signupFormSubmit.addEventListener('submit', function(e) {

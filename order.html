@@ -253,6 +253,10 @@
                     <h2>Informations de Commande</h2>
                     
                     <form id="orderForm">
+                        <?php 
+                        require_once 'config/csrf.php';
+                        echo CSRFProtection::getTokenField();
+                        ?>
                         <div class="form-group">
                             <label for="productType">Type de Produit <span class="required">*</span></label>
                             <select class="form-control" id="productType" name="productType" required>
