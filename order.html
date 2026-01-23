@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passer Commande - LOMPUB Batna</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="order.css">
+</head>
+<body>
+    <!-- Top Bar (Same as index.html) -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="contact-info-top">
+                <div class="contact-item-top">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>N31, Rue D.E, Batna, Algérie 05000</span>
+                </div>
+                <div class="contact-item-top">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>+213 560 33 63 25 / +213 698 99 86 42</span>
+                </div>
+                <div class="contact-item-top">
+                    <i class="fas fa-envelope"></i>
+                    <span>lompubatna@gmail.com</span>
+                </div>
+            </div>
+            <div class="social-top">
+                <a href="#" class="social-link-top">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link-top">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link-top">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header (Same as index.html) -->
+    <header class="fixed-header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html" class="logo-container">
+                    <img src="assets/logo.png" alt="LOMPUB Logo" class="logo-img">
+                </a>
+            </div>
+
+            <nav class="desktop-nav">
+                <ul class="desktop-nav-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="index.html#services">Nos services</a></li>
+                    <li><a href="products.html">Produits</a></li>
+                    <li><a href="index.html#about">À propos</a></li>
+                    <li><a href="index.html#contact">Contactez-nous</a></li>
+                </ul>
+
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn-login">Se connecter</a>
+                    <a href="register.html" class="btn-signup">Créer un compte</a>
+                </div>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu (Same as index.html) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="mobile-logo">
+                <img src="assets/logo.png" alt="LOMPUB Logo" class="mobile-logo-img">
+            </div>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-contact-info">
+            <div class="mobile-contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">N31, Rue D.E, Batna, Algérie 05000</span>
+                </div>
+            </div>
+            <div class="mobile-contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">+213 560 33 63 25</span>
+                </div>
+            </div>
+            <div class="mobile-contact-item">
+                <i class="fas fa-envelope"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">lompubatna@gmail.com</span>
+                </div>
+            </div>
+            <div class="mobile-contact-item">
+                <i class="fas fa-clock"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">Samedi - Jeudi: 08h - 18h</span>
+                </div>
+            </div>
+            <div class="mobile-menu-section">
+                <a href="index.html" class="mobile-menu-link">
+                    <i class="fas fa-home"></i>
+                    <span>Accueil</span>
+                </a>
+                <a href="index.html#services" class="mobile-menu-link">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span>Nos services</span>
+                </a>
+                <a href="products.html" class="mobile-menu-link">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Produits</span>
+                </a>
+                <a href="index.html#about" class="mobile-menu-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>À propos</span>
+                </a>
+                <a href="order.html" class="mobile-menu-link active">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Commander</span>
+                </a>
+            </div>
+        </div>
+        <div class="mobile-cta-buttons">
+            <a href="login.html" class="mobile-menu-link">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Se connecter</span>
+            </a>
+            <a href="register.html" class="mobile-menu-link">
+                <i class="fas fa-user-plus"></i>
+                <span>Créer un compte</span>
+            </a>
+        </div>
+        <div class="mobile-copyright">
+            <div class="mobile-contact-social">
+                <a href="#" class="mobile-social-link">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="mobile-social-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="mobile-social-link">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container breadcrumb-content">
+            <a href="index.html">Accueil</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="products.html">Nos Produits</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Passer Commande</span>
+        </div>
+    </div>
+
+    <!-- Order Steps -->
+    <section class="order-steps">
+        <div class="container">
+            <div class="steps-container">
+                <div class="step active" data-step="1">
+                    <div class="step-icon">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                    <div class="step-info">
+                        <span class="step-number">Étape 1</span>
+                        <h4>Sélection du Produit</h4>
+                    </div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="step-info">
+                        <span class="step-number">Étape 2</span>
+                        <h4>Informations de Commande</h4>
+                    </div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="step-info">
+                        <span class="step-number">Étape 3</span>
+                        <h4>Confirmation</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form Section -->
+    <section class="order-form-section">
+        <div class="container">
+            <div class="order-container">
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h2>Récapitulatif de Commande</h2>
+                    
+                    <div class="selected-product" id="selectedProduct">
+                        <h3 id="productTitle">Cartes de Visite Professionnelles</h3>
+                        <div class="product-details-summary">
+                            <p><strong>Quantité:</strong> <span id="productQuantity">500</span> pièces</p>
+                            <p><strong>Format:</strong> <span id="productFormat">85x55mm</span></p>
+                            <p><strong>Papier:</strong> <span id="productPaper">300g/m² brillant</span></p>
+                            <p><strong>Finitions:</strong> <span id="productFinishing">Recto-verso quadrichromie</span></p>
+                            <p><strong>Délai:</strong> <span id="productDelivery">48h</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="price-summary">
+                        <div class="price-row">
+                            <span>Sous-total:</span>
+                            <span id="subtotalPrice">4,000 DA</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Livraison:</span>
+                            <span id="deliveryPrice">500 DA</span>
+                        </div>
+                        <div class="price-row">
+                            <span>TVA (19%):</span>
+                            <span id="taxPrice">855 DA</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Total:</span>
+                            <span id="totalPrice">5,355 DA</span>
+                        </div>
+                    </div>
+                    
+                    <div class="order-guarantee">
+                        <p>
+                            <i class="fas fa-info-circle"></i>
+                            <strong>Garantie satisfaction:</strong> Votre satisfaction est notre priorité. Si vous n'êtes pas satisfait, nous réimprimons gratuitement.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Order Form -->
+                <div class="order-form-container">
+                    <h2>Informations de Commande</h2>
+                    
+                    <form id="orderForm">
+                        <div class="form-group">
+                            <label for="productType">Type de Produit <span class="required">*</span></label>
+                            <select class="form-control" id="productType" name="productType" required>
+                                <option value="">Sélectionnez un produit</option>
+                                <optgroup label="🖨️ Digital Printing – Large Format">
+                                    <option value="autocollant">Impression Autocollant</option>
+                                    <option value="one-way">Impression One Way Vision</option>
+                                    <option value="bache">Impression Bâche</option>
+                                    <option value="cadres-bois">Impression Cadres en Bois</option>
+                                </optgroup>
+                                <optgroup label="🖨️ Digital Printing – Small Format">
+                                    <option value="cartes-visite" selected>Cartes de Visite</option>
+                                    <option value="cartes-pvc">Cartes de Visite PVC</option>
+                                    <option value="flyers">Flyers</option>
+                                    <option value="depliants">Dépliants</option>
+                                    <option value="stickers">Stickers / Étiquettes</option>
+                                    <option value="rdv-cards">Cartes de Rendez-vous</option>
+                                    <option value="prescription">Prescription A5</option>
+                                    <option value="calendars">Calendriers</option>
+                                    <option value="calendriers-chevalet">Calendriers Chevalet</option>
+                                    <option value="tent-calendar">Tent Calendar</option>
+                                    <option value="calendriers-poche">Calendrier Poche</option>
+                                    <option value="catalogue">Catalogue</option>
+                                    <option value="posters">Affiches (Posters)</option>
+                                    <option value="notebooks">Spiral Notebooks</option>
+                                </optgroup>
+                                <optgroup label="👕 Textile & Objets">
+                                    <option value="mugs">Mugs</option>
+                                    <option value="t-shirts">T-Shirts</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="quantity">Quantité <span class="required">*</span></label>
+                                <input type="number" class="form-control" id="quantity" name="quantity" min="1" value="500" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="format">Format <span class="required">*</span></label>
+                                <select class="form-control" id="format" name="format" required>
+                                    <option value="85x55">85x55mm (Standard)</option>
+                                    <option value="90x50">90x50mm (Euro)</option>
+                                    <option value="A5">A5 (148x210mm)</option>
+                                    <option value="A4">A4 (210x297mm)</option>
+                                    <option value="A3">A3 (297x420mm)</option>
+                                    <option value="custom">Format personnalisé</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="paperType">Type de Papier <span class="required">*</span></label>
+                                <select class="form-control" id="paperType" name="paperType" required>
+                                    <option value="300g-brillant">300g/m² brillant</option>
+                                    <option value="300g-mat">300g/m² mat</option>
+                                    <option value="350g-brillant">350g/m² brillant (Premium)</option>
+                                    <option value="pvc-0.76">PVC 0.76mm</option>
+                                    <option value="135g-brillant">135g/m² brillant</option>
+                                    <option value="150g-couche">150g/m² couché</option>
+                                    <option value="250g-carton">250g/m² cartonné</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="deliveryTime">Délai de Livraison <span class="required">*</span></label>
+                                <select class="form-control" id="deliveryTime" name="deliveryTime" required>
+                                    <option value="24h">24h (Urgent - +30%)</option>
+                                    <option value="48h" selected>48h (Standard)</option>
+                                    <option value="72h">72h (Économique - -10%)</option>
+                                    <option value="5j">5 jours ouvrables</option>
+                                    <option value="7j">7 jours ouvrables</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Options Supplémentaires</label>
+                            <div class="form-checkbox">
+                                <input type="checkbox" id="optionVernis" name="optionVernis">
+                                <label for="optionVernis">Vernis sélectif (+15%)</label>
+                            </div>
+                            <div class="form-checkbox">
+                                <input type="checkbox" id="optionPelliculage" name="optionPelliculage">
+                                <label for="optionPelliculage">Pelliculage mat ou brillant (+20%)</label>
+                            </div>
+                            <div class="form-checkbox">
+                                <input type="checkbox" id="optionDecoupe" name="optionDecoupe">
+                                <label for="optionDecoupe">Découpe à la forme (+10%)</label>
+                            </div>
+                            <div class="form-checkbox">
+                                <input type="checkbox" id="optionNumeration" name="optionNumeration">
+                                <label for="optionNumeration">Numérotation (+5%)</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customerName">Nom complet <span class="required">*</span></label>
+                            <input type="text" class="form-control" id="customerName" name="customerName" required placeholder="Votre nom et prénom">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="customerEmail">Email <span class="required">*</span></label>
+                                <input type="email" class="form-control" id="customerEmail" name="customerEmail" required placeholder="votre@email.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="customerPhone">Téléphone <span class="required">*</span></label>
+                                <input type="tel" class="form-control" id="customerPhone" name="customerPhone" required placeholder="+213 XXX XX XX XX">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customerAddress">Adresse de Livraison <span class="required">*</span></label>
+                            <textarea class="form-control form-textarea" id="customerAddress" name="customerAddress" required placeholder="Adresse complète pour la livraison"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="deliveryMethod">Méthode de Livraison <span class="required">*</span></label>
+                            <div class="form-radio-group">
+                                <div class="form-radio">
+                                    <input type="radio" id="deliveryPickup" name="deliveryMethod" value="pickup" checked>
+                                    <label for="deliveryPickup">Retrait en agence (Gratuit)</label>
+                                </div>
+                                <div class="form-radio">
+                                    <input type="radio" id="deliveryStandard" name="deliveryMethod" value="standard">
+                                    <label for="deliveryStandard">Livraison standard (500 DA)</label>
+                                </div>
+                                <div class="form-radio">
+                                    <input type="radio" id="deliveryExpress" name="deliveryMethod" value="express">
+                                    <label for="deliveryExpress">Livraison express (1000 DA)</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="paymentMethod">Méthode de Paiement <span class="required">*</span></label>
+                            <div class="form-radio-group">
+                                <div class="form-radio">
+                                    <input type="radio" id="paymentCash" name="paymentMethod" value="cash" checked>
+                                    <label for="paymentCash">Paiement à la livraison</label>
+                                </div>
+                                <div class="form-radio">
+                                    <input type="radio" id="paymentBank" name="paymentMethod" value="bank">
+                                    <label for="paymentBank">Virement bancaire</label>
+                                </div>
+                                <div class="form-radio">
+                                    <input type="radio" id="paymentCard" name="paymentMethod" value="card">
+                                    <label for="paymentCard">Carte bancaire (en ligne)</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Fichiers à imprimer</label>
+                            <div class="file-upload" id="fileUploadArea">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Cliquez pour télécharger vos fichiers</p>
+                                <p class="file-upload-subtext">Formats acceptés: PDF, AI, PSD, JPG, PNG (Max. 50MB)</p>
+                                <input type="file" id="fileInput" multiple accept=".pdf,.ai,.psd,.jpg,.jpeg,.png">
+                            </div>
+                            <div class="file-list" id="fileList"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="orderNotes">Notes supplémentaires</label>
+                            <textarea class="form-control form-textarea" id="orderNotes" name="orderNotes" placeholder="Informations supplémentaires, instructions spéciales, etc."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit-order" id="submitOrderBtn">
+                            <i class="fas fa-shopping-cart"></i> Passer la commande
+                        </button>
+                    </form>
+                    
+                    <!-- Confirmation Message (Hidden by default) -->
+                    <div class="confirmation-message" id="confirmationMessage">
+                        <i class="fas fa-check-circle"></i>
+                        <h2>Commande Enregistrée !</h2>
+                        <p>Votre commande a été enregistrée avec succès. Notre équipe vous contactera dans les plus brefs délais pour confirmer les détails et procéder au paiement.</p>
+                        <p>Numéro de commande: <strong>CMD-2023-8765</strong></p>
+                        <div class="confirmation-buttons">
+                            <a href="index.html" class="btn">
+                                <i class="fas fa-home"></i> Retour à l'accueil
+                            </a>
+                            <a href="products.html" class="btn btn-secondary">
+                                <i class="fas fa-shopping-bag"></i> Voir plus de produits
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Same as index.html) -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="assets/logo.png" alt="LOMPUB Logo" class="footer-logo-img">
+                    </div>
+                    <p>Agence de publicité et communication basée à Batna depuis 2008. Spécialistes en habillage, décoration, design, impression, sérigraphie, enseignes et publicité sur bus.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Services LOMPUB</h3>
+                    <ul>
+                        <li><a href="index.html#services">Habillage (Vitrines, Façades, Véhicules)</a></li>
+                        <li><a href="index.html#services">Décoration & Design</a></li>
+                        <li><a href="index.html#services">Impression & Sérigraphie</a></li>
+                        <li><a href="index.html#services">Enseignes & Pub Bus</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contactez-nous</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> N31, Rue D.E, Batna, Algérie 05000</p>
+                    <p><i class="fas fa-phone"></i> +213 560 33 63 25</p>
+                    <p><i class="fas fa-phone"></i> +213 698 99 86 42</p>
+                    <p><i class="fas fa-envelope"></i> lompubatna@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Samedi - Jeudi: 08h - 18h</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 LOMPUB Batna - Agence de Publicité. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="order.js"></script>
+    <script>
+        // Mobile Menu Functionality (same as other pages)
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+        
+        menuOverlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+    </script>
+</body>
+</html>

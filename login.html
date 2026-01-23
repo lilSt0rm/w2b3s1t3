@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Sous-traitant - LOMPUB Batna</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Modern Espace Sous-traitant Styles */
+        :root {
+            --modern-red: #FF3B30;
+            --modern-dark: #0F0F14;
+            --modern-darker: #0A0A0F;
+            --modern-light: #1C1C24;
+            --modern-lighter: #2D2D3A;
+            --modern-white: #F0F0F5;
+            --modern-gray: #8A8A9E;
+            --modern-accent: #FF3B30;
+            --modern-gradient: linear-gradient(135deg, #FF3B30 0%, #FF6B6B 100%);
+            --modern-glass: rgba(28, 28, 36, 0.7);
+            --modern-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            --modern-glow: 0 0 20px rgba(255, 59, 48, 0.3);
+        }
+
+        body {
+            background: var(--modern-white);
+            color: var(--modern-white);
+            font-family: 'Montserrat', sans-serif;
+            padding-top: 70px;
+            overflow-x: hidden;
+        }
+
+        .top-bar {
+            background: var(--modern-light);
+            border-bottom: 1px solid var(--modern-lighter);
+        }
+
+        header.fixed-header {
+            background: var(--modern-dark);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .desktop-nav-links li a {
+            color: var(--modern-white);
+        }
+
+        .desktop-nav-links li a:hover,
+        .desktop-nav-links li a.active {
+            color: var(--modern-red);
+        }
+
+        .btn-login {
+            background: var(--modern-gradient);
+            color: var(--modern-white);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: var(--modern-glow);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 59, 48, 0.4);
+        }
+
+        /* Modern Login Hero */
+        .modern-hero {
+            position: relative;
+            padding: 100px 0 60px;
+            background: linear-gradient(180deg, 
+                var(--modern-gray) 0%,
+                rgba(15, 15, 20, 0.95) 100%);
+            overflow: hidden;
+        }
+
+        .modern-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 59, 48, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 107, 0.05) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            background: var(--modern-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(255, 59, 48, 0.3));
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, #ccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-tagline {
+            font-size: 1.3rem;
+            color: var(--modern-gray);
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: var(--modern-light);
+            border-radius: 20px;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -5s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-30px) rotate(10deg);
+            }
+            66% {
+                transform: translateY(30px) rotate(-10deg);
+            }
+        }
+
+        /* Modern Auth Container */
+        .modern-auth-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .auth-card-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        /* Left Panel - Modern */
+        .modern-sidebar {
+            background: var(--modern-glass);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--modern-shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .sidebar-header {
+            margin-bottom: 40px;
+        }
+
+        .sidebar-badge {
+            display: inline-block;
+            background: var(--modern-gradient);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            box-shadow: var(--modern-glow);
+        }
+
+        .sidebar-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff 0%, #ccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sidebar-subtitle {
+            color: var(--modern-gray);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 59, 48, 0.1);
+            border-color: rgba(255, 59, 48, 0.3);
+            transform: translateX(5px);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--modern-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--modern-red);
+            flex-shrink: 0;
+        }
+
+        .feature-text h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .feature-text p {
+            font-size: 0.9rem;
+            color: var(--modern-gray);
+            line-height: 1.4;
+        }
+
+        /* Right Panel - Modern */
+        .modern-auth-card {
+            background: var(--modern-glass);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--modern-shadow);
+        }
+
+        .modern-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modern-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--modern-gray);
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modern-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--modern-gradient);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+
+        .modern-tab span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .modern-tab:hover {
+            color: var(--modern-white);
+        }
+
+        .modern-tab.active {
+            background: var(--modern-gradient);
+            color: var(--modern-white);
+            box-shadow: var(--modern-glow);
+        }
+
+        .modern-tab.active::before {
+            opacity: 1;
+        }
+
+        /* Forms */
+        .modern-form {
+            display: none;
+            animation: slideUp 0.5s ease;
+        }
+
+        .modern-form.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-header {
+            margin-bottom: 40px;
+        }
+
+        .form-header h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 0%, #ccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-header p {
+            color: var(--modern-gray);
+            font-size: 1.1rem;
+        }
+
+        .modern-form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .modern-form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--modern-white);
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .modern-form-label span {
+            color: var(--modern-red);
+        }
+
+        .modern-input-wrapper {
+            position: relative;
+        }
+
+        .modern-input {
+            width: 100%;
+            padding: 18px 20px 18px 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: var(--modern-white);
+            transition: all 0.3s;
+        }
+
+        .modern-input:focus {
+            outline: none;
+            border-color: var(--modern-red);
+            background: rgba(255, 59, 48, 0.05);
+            box-shadow: var(--modern-glow);
+        }
+
+        .modern-input::placeholder {
+            color: var(--modern-gray);
+        }
+
+        .input-icon-modern {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--modern-gray);
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            z-index: 2;
+        }
+
+        .modern-input:focus + .input-icon-modern {
+            color: var(--modern-red);
+        }
+
+        .form-options-modern {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .modern-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .modern-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            appearance: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .modern-checkbox input[type="checkbox"]:checked {
+            background: var(--modern-gradient);
+            border-color: var(--modern-red);
+        }
+
+        .modern-checkbox input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+        }
+
+        .modern-checkbox span {
+            font-size: 0.95rem;
+            color: var(--modern-gray);
+        }
+
+        .modern-forgot-link {
+            color: var(--modern-red);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .modern-forgot-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--modern-gradient);
+            transition: width 0.3s;
+        }
+
+        .modern-forgot-link:hover::after {
+            width: 100%;
+        }
+
+        .modern-forgot-link:hover {
+            color: #ff6b6b;
+        }
+
+        .modern-submit-btn {
+            background: var(--modern-gradient);
+            color: var(--modern-white);
+            border: none;
+            padding: 18px 30px;
+            border-radius: 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: var(--modern-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modern-submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .modern-submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .modern-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 59, 48, 0.4);
+        }
+
+        .modern-divider {
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .modern-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        .modern-divider span {
+            background: var(--modern-glass);
+            padding: 0 25px;
+            color: var(--modern-gray);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
+            letter-spacing: 2px;
+        }
+
+        .modern-switch {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modern-switch p {
+            color: var(--modern-gray);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .modern-switch-btn {
+            background: transparent;
+            color: var(--modern-white);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 40px;
+            border-radius: 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 300px;
+            backdrop-filter: blur(10px);
+        }
+
+        .modern-switch-btn:hover {
+            border-color: var(--modern-red);
+            background: rgba(255, 59, 48, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Terms */
+        .modern-terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .modern-terms input[type="checkbox"] {
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        .modern-terms label {
+            font-size: 0.9rem;
+            color: var(--modern-gray);
+            line-height: 1.6;
+        }
+
+        .modern-terms a {
+            color: var(--modern-red);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .modern-terms a:hover {
+            color: #ff6b6b;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--modern-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-contact p {
+            color: var(--modern-gray);
+        }
+
+        .footer-contact i {
+            color: var(--modern-red);
+        }
+
+        .footer-links ul li a {
+            color: var(--modern-gray);
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--modern-red);
+        }
+
+        .footer-about p {
+            color: var(--modern-gray);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .auth-card-wrapper {
+                gap: 30px;
+            }
+            
+            .modern-auth-card {
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .auth-card-wrapper {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-tagline {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .modern-hero {
+                padding: 80px 0 40px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero-icon {
+                font-size: 3rem;
+            }
+            
+            .modern-auth-card {
+                padding: 30px;
+            }
+            
+            .modern-tabs {
+                flex-direction: column;
+            }
+            
+            .form-options-modern {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-tagline {
+                font-size: 1rem;
+            }
+            
+            .modern-sidebar,
+            .modern-auth-card {
+                padding: 25px 20px;
+            }
+            
+            .sidebar-title {
+                font-size: 1.5rem;
+            }
+            
+            .form-header h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Particle Background */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--modern-red);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particleFloat 20s infinite linear;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="contact-info-top">
+                <div class="contact-item-top">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>N31, Rue D.E, Batna, Algérie 05000</span>
+                </div>
+                <div class="contact-item-top">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>+213 560 33 63 25 / +213 698 99 86 42</span>
+                </div>
+                <div class="contact-item-top">
+                    <i class="fas fa-envelope"></i>
+                    <span>lompubatna@gmail.com</span>
+                </div>
+            </div>
+            <div class="social-top">
+                <a href="#" class="social-link-top">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link-top">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link-top">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed-header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html" class="logo-container">
+                    <img src="assets/logo.png" alt="LOMPUB Logo" class="logo-img">
+                </a>
+            </div>
+
+            <nav class="desktop-nav">
+                <ul class="desktop-nav-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="index.html#services">Nos services</a></li>
+                    <li><a href="products.html">Produits</a></li>
+                    <li><a href="index.html#about">À propos</a></li>
+                    <li><a href="index.html#contact">Contactez-nous</a></li>
+                </ul>
+
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn-login">Espace Sous-traitant</a>
+                </div>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="mobile-logo">
+                <img src="assets/logo.png" alt="LOMPUB Logo" class="mobile-logo-img">
+            </div>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-contact-info">
+            <div class="mobile-contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">N31, Rue D.E, Batna, Algérie 05000</span>
+                </div>
+            </div>
+            <div class="mobile-contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">+213 560 33 63 25</span>
+                </div>
+            </div>
+            <div class="mobile-contact-item">
+                <i class="fas fa-envelope"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">lompubatna@gmail.com</span>
+                </div>
+            </div>
+            <div class="mobile-contact-item">
+                <i class="fas fa-clock"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">Samedi - Jeudi: 08h - 18h</span>
+                </div>
+            </div>
+            <div class="mobile-menu-section">
+                <a href="index.html" class="mobile-menu-link">
+                    <i class="fas fa-home"></i>
+                    <span>Accueil</span>
+                </a>
+                <a href="index.html#services" class="mobile-menu-link">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span>Nos services</span>
+                </a>
+                <a href="products.html" class="mobile-menu-link">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Produits</span>
+                </a>
+                <a href="index.html#about" class="mobile-menu-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>À propos</span>
+                </a>
+                <a href="login.html" class="mobile-menu-link">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Espace Sous-traitant</span>
+                </a>
+            </div>
+        </div>
+        <div class="mobile-copyright">
+            <div class="mobile-contact-social">
+                <a href="#" class="mobile-social-link">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="mobile-social-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="mobile-social-link">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Modern Hero Section -->
+    <section class="modern-hero">
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        
+        <div class="particles" id="particles"></div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h1>Espace Sous-traitant</h1>
+                <p class="hero-tagline">
+                    Accédez à votre espace personnel pour gérer vos projets et envoyer des fichiers
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modern Auth Container -->
+    <div class="modern-auth-container">
+        <div class="auth-card-wrapper">
+            <!-- Left Panel -->
+            <div class="modern-sidebar">
+                <div class="sidebar-header">
+                    <span class="sidebar-badge">PARTENAIRE LOMPUB</span>
+                    <h2 class="sidebar-title">Collaborez avec l'excellence</h2>
+                    <p class="sidebar-subtitle">
+                        Rejoignez notre réseau de sous-traitants experts et développez votre activité avec LOMPUB
+                    </p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Projets Premium</h4>
+                            <p>Travaillez sur des projets de haute qualité avec des clients prestigieux</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Croissance Garantie</h4>
+                            <p>Développez votre entreprise avec un flux de travail régulier et fiable</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Sécurité Totale</h4>
+                            <p>Paiements sécurisés et contrats protégés pour une collaboration sereine</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Support Dédié</h4>
+                            <p>Une équipe à votre écoute pour vous accompagner dans tous vos projets</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="modern-auth-card">
+                <div class="modern-tabs">
+                    <div class="modern-tab active" data-tab="login">
+                        <span>Connexion</span>
+                    </div>
+                    <div class="modern-tab" data-tab="signup">
+                        <span>Inscription</span>
+                    </div>
+                </div>
+
+                <!-- Login Form -->
+                <div class="modern-form active" id="loginForm">
+                    <div class="form-header">
+                        <h3>Connexion Sous-traitant</h3>
+                        <p>Accédez à votre espace de travail</p>
+                    </div>
+
+                    <form id="loginFormSubmit">
+                        <div class="modern-form-group">
+                            <label class="modern-form-label" for="loginEmail">
+                                Email ou Téléphone <span>*</span>
+                            </label>
+                            <div class="modern-input-wrapper">
+                                <input type="text" class="modern-input" id="loginEmail" 
+                                       placeholder="votre@email.com ou +213...">
+                                <i class="fas fa-user input-icon-modern"></i>
+                            </div>
+                        </div>
+
+                        <div class="modern-form-group">
+                            <label class="modern-form-label" for="loginPassword">
+                                Mot de passe <span>*</span>
+                            </label>
+                            <div class="modern-input-wrapper">
+                                <input type="password" class="modern-input" id="loginPassword" 
+                                       placeholder="Votre mot de passe">
+                                <i class="fas fa-lock input-icon-modern"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-options-modern">
+                            <label class="modern-checkbox">
+                                <input type="checkbox" id="rememberMe">
+                                <span>Se souvenir de moi</span>
+                            </label>
+                            <a href="#" class="modern-forgot-link" id="forgotPassword">
+                                Mot de passe oublié ?
+                            </a>
+                        </div>
+
+                        <button type="submit" class="modern-submit-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Se connecter</span>
+                        </button>
+
+                        <div class="modern-divider">
+                            <span>OU</span>
+                        </div>
+
+                        <div class="modern-switch">
+                            <p>Nouveau sous-traitant ?</p>
+                            <button type="button" class="modern-switch-btn" id="switchToSignup">
+                                Créez un compte
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Signup Form -->
+                <div class="modern-form" id="signupForm">
+                    <div class="form-header">
+                        <h3>Créer un compte Sous-traitant</h3>
+                        <p>Rejoignez notre réseau de sous-traitants spécialisés</p>
+                    </div>
+
+                    <form id="signupFormSubmit">
+                        <div class="modern-form-group">
+                            <label class="modern-form-label" for="signupFullName">
+                                Nom Complet <span>*</span>
+                            </label>
+                            <div class="modern-input-wrapper">
+                                <input type="text" class="modern-input" id="signupFullName" 
+                                       placeholder="Votre nom et prénom">
+                                <i class="fas fa-user input-icon-modern"></i>
+                            </div>
+                        </div>
+
+                        <div class="modern-form-group">
+                            <label class="modern-form-label" for="signupEmail">
+                                Email Professionnel <span>*</span>
+                            </label>
+                            <div class="modern-input-wrapper">
+                                <input type="email" class="modern-input" id="signupEmail" 
+                                       placeholder="votre@entreprise.com">
+                                <i class="fas fa-envelope input-icon-modern"></i>
+                            </div>
+                        </div>
+
+                        <div class="modern-form-group">
+                            <label class="modern-form-label" for="signupPhone">
+                                Téléphone <span>*</span>
+                            </label>
+                            <div class="modern-input-wrapper">
+                                <input type="tel" class="modern-input" id="signupPhone" 
+                                       placeholder="+213 560 00 00 00">
+                                <i class="fas fa-phone input-icon-modern"></i>
+                            </div>
+                        </div>
+
+                        <div class="modern-form-group">
+                            <label class="modern-form-label" for="signupCompany">
+                                Entreprise/Spécialité <span>*</span>
+                            </label>
+                            <div class="modern-input-wrapper">
+                                <input type="text" class="modern-input" id="signupCompany" 
+                                       placeholder="Nom de votre entreprise ou spécialité">
+                                <i class="fas fa-building input-icon-modern"></i>
+                            </div>
+                        </div>
+
+                        <div class="modern-form-group">
+                            <label class="modern-form-label" for="signupPassword">
+                                Mot de passe <span>*</span>
+                            </label>
+                            <div class="modern-input-wrapper">
+                                <input type="password" class="modern-input" id="signupPassword" 
+                                       placeholder="Créez un mot de passe sécurisé">
+                                <i class="fas fa-lock input-icon-modern"></i>
+                            </div>
+                        </div>
+
+                        <div class="modern-form-group">
+                            <label class="modern-form-label" for="signupConfirmPassword">
+                                Confirmer le mot de passe <span>*</span>
+                            </label>
+                            <div class="modern-input-wrapper">
+                                <input type="password" class="modern-input" id="signupConfirmPassword" 
+                                       placeholder="Répétez votre mot de passe">
+                                <i class="fas fa-lock input-icon-modern"></i>
+                            </div>
+                        </div>
+
+                        <div class="modern-terms">
+                            <input type="checkbox" id="acceptTerms" class="modern-checkbox">
+                            <label for="acceptTerms">
+                                J'accepte les <a href="#">conditions générales</a> et la 
+                                <a href="#">politique de confidentialité</a> de LOMPUB. Je confirme que 
+                                les informations fournies sont exactes et que je possède l'expertise 
+                                requise pour les services que je propose.
+                            </label>
+                        </div>
+
+                        <button type="submit" class="modern-submit-btn">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Créer mon compte</span>
+                        </button>
+
+                        <div class="modern-divider">
+                            <span>OU</span>
+                        </div>
+
+                        <div class="modern-switch">
+                            <p>Déjà un compte ?</p>
+                            <button type="button" class="modern-switch-btn" id="switchToLogin">
+                                Connectez-vous
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="assets/logo.png" alt="LOMPUB Logo" class="footer-logo-img">
+                    </div>
+                    <p>Agence de publicité et communication basée à Batna depuis 2008. Spécialistes en habillage, décoration, design, impression, sérigraphie, enseignes et publicité sur bus.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Services LOMPUB</h3>
+                    <ul>
+                        <li><a href="index.html#services">Habillage (Vitrines, Façades, Véhicules)</a></li>
+                        <li><a href="index.html#services">Décoration & Design</a></li>
+                        <li><a href="index.html#services">Impression & Sérigraphie</a></li>
+                        <li><a href="index.html#services">Enseignes & Pub Bus</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contactez-nous</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> N31, Rue D.E, Batna, Algérie 05000</p>
+                    <p><i class="fas fa-phone"></i> +213 560 33 63 25</p>
+                    <p><i class="fas fa-phone"></i> +213 698 99 86 42</p>
+                    <p><i class="fas fa-envelope"></i> lompubatna@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Samedi - Jeudi: 08h - 18h</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 LOMPUB Batna - Agence de Publicité. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+        
+        menuOverlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Particle Background
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100 + 100}%`;
+                
+                // Random animation delay
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Auth Tabs Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            const authTabs = document.querySelectorAll('.modern-tab');
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const switchToSignupBtn = document.getElementById('switchToSignup');
+            const switchToLoginBtn = document.getElementById('switchToLogin');
+
+            // Switch to Login
+            function showLoginForm() {
+                authTabs.forEach(tab => {
+                    if (tab.dataset.tab === 'login') {
+                        tab.classList.add('active');
+                    } else {
+                        tab.classList.remove('active');
+                    }
+                });
+                
+                loginForm.classList.add('active');
+                signupForm.classList.remove('active');
+                
+                // Add animation class
+                loginForm.style.animation = 'none';
+                setTimeout(() => {
+                    loginForm.style.animation = 'slideUp 0.5s ease';
+                }, 10);
+            }
+
+            // Switch to Signup
+            function showSignupForm() {
+                authTabs.forEach(tab => {
+                    if (tab.dataset.tab === 'signup') {
+                        tab.classList.add('active');
+                    } else {
+                        tab.classList.remove('active');
+                    }
+                });
+                
+                signupForm.classList.add('active');
+                loginForm.classList.remove('active');
+                
+                // Add animation class
+                signupForm.style.animation = 'none';
+                setTimeout(() => {
+                    signupForm.style.animation = 'slideUp 0.5s ease';
+                }, 10);
+            }
+
+            // Tab click events
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    if (this.dataset.tab === 'login') {
+                        showLoginForm();
+                    } else {
+                        showSignupForm();
+                    }
+                });
+            });
+
+            // Switch button events
+            switchToSignupBtn.addEventListener('click', showSignupForm);
+            switchToLoginBtn.addEventListener('click', showLoginForm);
+
+            // Form submission
+            const loginFormSubmit = document.getElementById('loginFormSubmit');
+            const signupFormSubmit = document.getElementById('signupFormSubmit');
+
+            loginFormSubmit.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                // Simple validation
+                if (!email || !password) {
+                    showNotification('Veuillez remplir tous les champs obligatoires.', 'error');
+                    return;
+                }
+                
+                // Simulate login process
+                const submitBtn = this.querySelector('.modern-submit-btn');
+                const originalText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion en cours...';
+                submitBtn.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    showNotification('Connexion réussie ! Bienvenue dans votre espace sous-traitant.', 'success');
+                    
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Reset form
+                    loginFormSubmit.reset();
+                }, 1500);
+            });
+
+            signupFormSubmit.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const fullName = document.getElementById('signupFullName').value;
+                const email = document.getElementById('signupEmail').value;
+                const phone = document.getElementById('signupPhone').value;
+                const company = document.getElementById('signupCompany').value;
+                const password = document.getElementById('signupPassword').value;
+                const confirmPassword = document.getElementById('signupConfirmPassword').value;
+                const acceptTerms = document.getElementById('acceptTerms').checked;
+                
+                // Validation
+                if (!fullName || !email || !phone || !company || !password || !confirmPassword) {
+                    showNotification('Veuillez remplir tous les champs obligatoires.', 'error');
+                    return;
+                }
+                
+                if (!acceptTerms) {
+                    showNotification('Veuillez accepter les conditions générales.', 'error');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    showNotification('Les mots de passe ne correspondent pas.', 'error');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    showNotification('Le mot de passe doit contenir au moins 6 caractères.', 'error');
+                    return;
+                }
+                
+                // Simulate signup process
+                const submitBtn = this.querySelector('.modern-submit-btn');
+                const originalText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Création du compte...';
+                submitBtn.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    showNotification(
+                        `Inscription réussie !\nUn email de confirmation a été envoyé à ${email}.\nNotre équipe examinera votre candidature et vous contactera dans les 48h.`,
+                        'success'
+                    );
+                    
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Reset form and switch to login
+                    signupFormSubmit.reset();
+                    showLoginForm();
+                }, 2000);
+            });
+
+            // Forgot password
+            const forgotPasswordLink = document.getElementById('forgotPassword');
+            forgotPasswordLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const email = prompt('Veuillez entrer votre email pour réinitialiser votre mot de passe :');
+                if (email) {
+                    showNotification(`Un email de réinitialisation a été envoyé à ${email}.\nVeuillez vérifier votre boîte de réception.`, 'info');
+                }
+            });
+
+            // Phone number formatting
+            const phoneInput = document.getElementById('signupPhone');
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                
+                if (value.startsWith('0')) {
+                    value = '+213' + value.substring(1);
+                } else if (value.startsWith('213')) {
+                    value = '+' + value;
+                } else if (value.length > 0 && !value.startsWith('+')) {
+                    value = '+213' + value;
+                }
+                
+                e.target.value = value;
+            });
+
+            // Notification system
+            function showNotification(message, type) {
+                // Remove existing notification
+                const existingNotification = document.querySelector('.modern-notification');
+                if (existingNotification) {
+                    existingNotification.remove();
+                }
+                
+                // Create notification
+                const notification = document.createElement('div');
+                notification.className = `modern-notification ${type}`;
+                
+                const icon = type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ';
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <span class="notification-icon">${icon}</span>
+                        <span class="notification-message">${message}</span>
+                    </div>
+                `;
+                
+                // Add styles
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    background: ${type === 'success' ? 'rgba(0, 200, 83, 0.1)' : 
+                                 type === 'error' ? 'rgba(255, 59, 48, 0.1)' : 
+                                 'rgba(33, 150, 243, 0.1)'};
+                    border: 1px solid ${type === 'success' ? 'rgba(0, 200, 83, 0.3)' : 
+                                     type === 'error' ? 'rgba(255, 59, 48, 0.3)' : 
+                                     'rgba(33, 150, 243, 0.3)'};
+                    color: white;
+                    padding: 15px 25px;
+                    border-radius: 12px;
+                    backdrop-filter: blur(20px);
+                    z-index: 9999;
+                    animation: slideIn 0.3s ease;
+                    max-width: 400px;
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }, 5000);
+            }
+
+            // Add keyframes for notification animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+                
+                @keyframes slideOut {
+                    from {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Add floating animation to feature items on hover
+            const featureItems = document.querySelectorAll('.feature-item');
+            featureItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    item.style.transform = 'translateX(5px) scale(1.02)';
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = 'translateX(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
