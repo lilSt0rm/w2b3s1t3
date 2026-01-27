@@ -1,0 +1,567 @@
+<?php
+require_once 'config/database.php';
+// Add session checks for protected pages
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Produits - LOMPUB Batna</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Bar (Same as index.html) -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="contact-info-top">
+                <div class="contact-item-top">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>N31, Rue D.E, Batna, Algérie 05000</span>
+                </div>
+                <div class="contact-item-top">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>+213 560 33 63 25 / +213 698 99 86 42</span>
+                </div>
+                <div class="contact-item-top">
+                    <i class="fas fa-envelope"></i>
+                    <span>lompubatna@gmail.com</span>
+                </div>
+            </div>
+            <div class="social-top">
+                <a href="#" class="social-link-top">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link-top">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link-top">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header (Fixed with consistent auth button) -->
+    <header class="fixed-header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.php" class="logo-container">
+                    <img src="assets/logo.png" alt="LOMPUB Logo" class="logo-img">
+                </a>
+            </div>
+
+            <nav class="desktop-nav">
+                <ul class="desktop-nav-links">
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="index.php#services">Nos services</a></li>
+                    <li><a href="products.php" class="active">Produits</a></li>
+                    <li><a href="index.php#about">À propos</a></li>
+                    <li><a href="index.php#contact">Contactez-nous</a></li>
+                </ul>
+
+                <div class="auth-buttons">
+                    <a href="login.php" class="btn-login">Espace Sous-traitant</a>
+                </div>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu (Same as index.html) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="mobile-logo">
+                <img src="assets/logo.png" alt="LOMPUB Logo" class="mobile-logo-img">
+            </div>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-contact-info">
+            <div class="mobile-contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">N31, Rue D.E, Batna, Algérie 05000</span>
+                </div>
+            </div>
+            <div class="mobile-contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">+213 560 33 63 25</span>
+                </div>
+            </div>
+            <div class="mobile-contact-item">
+                <i class="fas fa-envelope"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">lompubatna@gmail.com</span>
+                </div>
+            </div>
+            <div class="mobile-contact-item">
+                <i class="fas fa-clock"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">Samedi - Jeudi: 08h - 18h</span>
+                </div>
+            </div>
+            <div class="mobile-menu-section">
+                <a href="index.php" class="mobile-menu-link">
+                    <i class="fas fa-home"></i>
+                    <span>Accueil</span>
+                </a>
+                <a href="index.php#services" class="mobile-menu-link">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span>Nos services</span>
+                </a>
+                <a href="products.php" class="mobile-menu-link">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Produits</span>
+                </a>
+                <a href="index.php#about" class="mobile-menu-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>À propos</span>
+                </a>
+                <a href="login.php" class="mobile-menu-link">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Espace Sous-traitant</span>
+                </a>
+            </div>
+        </div>
+        <div class="mobile-copyright">
+            <div class="mobile-contact-social">
+                <a href="#" class="mobile-social-link">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="mobile-social-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="mobile-social-link">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container breadcrumb-content">
+            <a href="index.php">Accueil</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Nos Produits</span>
+        </div>
+    </div>
+
+    <!-- Main Products Categories -->
+    <section class="products-categories">
+        <div class="container">
+            <!-- Grand Format Section -->
+            <div class="category-section" id="grand-format">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <i class="fas fa-expand-alt"></i> 🖨️ Digital Printing – Grand Format
+                    </h2>
+                </div>
+
+                <div class="products-grid-category">
+                    <!-- Product Card 1 -->
+                    <div class="category-card" data-format="grand" data-paper="pvc">
+                        <div class="category-card-img">
+                            <div class="category-card-overlay"></div>
+                            <img src="assets/Design.png" alt="Impression Autocollant Vinyle">
+                            <div class="popular-tag">Populaire</div>
+                        </div>
+                        <div class="category-card-content">
+                            <h3 class="category-card-title">
+                                <i class="fas fa-sticky-note"></i> Impression Autocollant (Vinyle)
+                            </h3>
+                            <p class="category-card-subtitle">
+                                Autocollants haute adhésion pour vitrines, véhicules et signalétique. Résistant aux intempéries.
+                            </p>
+                            
+                            <div class="category-card-details">
+                                <span class="detail-item">Vinyle haute qualité</span>
+                                <span class="detail-item">Intérieur/Extérieur</span>
+                                <span class="detail-item">Sur mesure</span>
+                            </div>
+                            
+                            <div class="category-card-price">
+                                À partir de <span>3 500 DA</span>
+                            </div>
+                            
+                            <div class="category-card-actions">
+                                <button class="btn-quick-order" onclick="quickOrder('Impression Autocollant Vinyle')">
+                                    <i class="fas fa-shopping-cart"></i> Commander
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 2 -->
+                    <div class="category-card" data-format="grand" data-paper="pvc">
+                        <div class="category-card-img">
+                            <div class="category-card-overlay"></div>
+                            <img src="assets/HABILLAGE.png" alt="One Way Vision">
+                            <div class="new-tag">Nouveau</div>
+                        </div>
+                        <div class="category-card-content">
+                            <h3 class="category-card-title">
+                                <i class="fas fa-eye"></i> One Way Vision
+                            </h3>
+                            <p class="category-card-subtitle">
+                                Film transparent pour vitrines permettant la visibilité de l'intérieur vers l'extérieur uniquement.
+                            </p>
+                            
+                            <div class="category-card-details">
+                                <span class="detail-item">Transparent</span>
+                                <span class="detail-item">Vision unilatérale</span>
+                                <span class="detail-item">Facile à installer</span>
+                            </div>
+                            
+                            <div class="category-card-price">
+                                À partir de <span>4 200 DA</span>
+                            </div>
+                            
+                            <div class="category-card-actions">
+                                <button class="btn-quick-order" onclick="quickOrder('One Way Vision')">
+                                    <i class="fas fa-shopping-cart"></i> Commander
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 -->
+                    <div class="category-card" data-format="grand">
+                        <div class="category-card-img">
+                            <div class="category-card-overlay"></div>
+                            <img src="assets/img1.png" alt="Impression Bâche PVC">
+                        </div>
+                        <div class="category-card-content">
+                            <h3 class="category-card-title">
+                                <i class="fas fa-image"></i> Impression Bâche (PVC)
+                            </h3>
+                            <p class="category-card-subtitle">
+                                Bâches PVC résistantes pour événements, chantiers et publicité extérieure. Imperméable et durable.
+                            </p>
+                            
+                            <div class="category-card-details">
+                                <span class="detail-item">PVC 500g</span>
+                                <span class="detail-item">Résistant UV</span>
+                                <span class="detail-item">Œillets inclus</span>
+                            </div>
+                            
+                            <div class="category-card-price">
+                                À partir de <span>2 800 DA</span>
+                            </div>
+                            
+                            <div class="category-card-actions">
+                                <button class="btn-quick-order" onclick="quickOrder('Impression Bâche PVC')">
+                                    <i class="fas fa-shopping-cart"></i> Commander
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4 -->
+                    <div class="category-card" data-format="grand">
+                        <div class="category-card-img">
+                            <div class="category-card-overlay"></div>
+                            <img src="assets/Design.png" alt="Affiches & Posters">
+                        </div>
+                        <div class="category-card-content">
+                            <h3 class="category-card-title">
+                                <i class="fas fa-film"></i> Affiches & Posters
+                            </h3>
+                            <p class="category-card-subtitle">
+                                Affiches grand format pour événements, promotions et décoration intérieure. Qualité photo professionnelle.
+                            </p>
+                            
+                            <div class="category-card-details">
+                                <span class="detail-item">Papier photo</span>
+                                <span class="detail-item">Résine</span>
+                                <span class="detail-item">Jusqu'à A0</span>
+                            </div>
+                            
+                            <div class="category-card-price">
+                                À partir de <span>1 500 DA</span>
+                            </div>
+                            
+                            <div class="category-card-actions">
+                                <button class="btn-quick-order" onclick="quickOrder('Affiches & Posters')">
+                                    <i class="fas fa-shopping-cart"></i> Commander
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 5 -->
+                    <div class="category-card" data-format="grand">
+                        <div class="category-card-img">
+                            <div class="category-card-overlay"></div>
+                            <img src="assets/HABILLAGE.png" alt="Cadres en Bois imprimés">
+                        </div>
+                        <div class="category-card-content">
+                            <h3 class="category-card-title">
+                                <i class="fas fa-border-style"></i> Cadres en Bois imprimés
+                            </h3>
+                            <p class="category-card-subtitle">
+                                Cadres élégants en bois avec impression directe pour décoration d'intérieur ou présentation professionnelle.
+                            </p>
+                            
+                            <div class="category-card-details">
+                                <span class="detail-item">Bois naturel</span>
+                                <span class="detail-item">Montage inclus</span>
+                                <span class="detail-item">Sur mesure</span>
+                            </div>
+                            
+                            <div class="category-card-price">
+                                À partir de <span>6 500 DA</span>
+                            </div>
+                            
+                            <div class="category-card-actions">
+                                <button class="btn-quick-order" onclick="quickOrder('Cadres en Bois imprimés')">
+                                    <i class="fas fa-shopping-cart"></i> Commander
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Petit Format Section -->
+            <div class="category-section" id="petit-format">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <i class="fas fa-compress-alt"></i> 🖨️ Digital Printing – Petit Format
+                    </h2>
+                </div>
+                <div class="products-grid-category">
+                    <!-- Product Card 6 -->
+                    <div class="category-card" data-format="petit" data-paper="couché">
+                        <div class="category-card-img">
+                            <div class="category-card-overlay"></div>
+                            <img src="assets/img1.png" alt="Cartes de Visite">
+                            <div class="popular-tag">Meilleure vente</div>
+                        </div>
+                        <div class="category-card-content">
+                            <h3 class="category-card-title">
+                                <i class="fas fa-id-card"></i> Cartes de Visite (papier)
+                            </h3>
+                            <p class="category-card-subtitle">
+                                Cartes de visite professionnelles sur papier couché brillant ou mat. Design personnalisé inclus.
+                            </p>
+                            
+                            <div class="category-card-details">
+                                <span class="detail-item">350g couché</span>
+                                <span class="detail-item">Recto/verso</span>
+                                <span class="detail-item">Format standard</span>
+                            </div>
+                            
+                            <div class="category-card-price">
+                                À partir de <span>800 DA</span>
+                            </div>
+                            
+                            <div class="category-card-actions">
+                                <button class="btn-quick-order" onclick="quickOrder('Cartes de Visite papier')">
+                                    <i class="fas fa-shopping-cart"></i> Commander
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 7 -->
+                    <div class="category-card" data-format="petit" data-paper="pvc">
+                        <div class="category-card-img">
+                            <div class="category-card-overlay"></div>
+                            <img src="assets/Design.png" alt="Cartes de Visite PVC">
+                        </div>
+                        <div class="category-card-content">
+                            <h3 class="category-card-title">
+                                <i class="fas fa-credit-card"></i> Cartes de Visite PVC
+                            </h3>
+                            <p class="category-card-subtitle">
+                                Cartes de visite premium en PVC rigide. Résistantes à l'eau et très durables. Effet luxe garanti.
+                            </p>
+                            
+                            <div class="category-card-details">
+                                <span class="detail-item">PVC 0.76mm</span>
+                                <span class="detail-item">Rigide</span>
+                                <span class="detail-item">Luxe</span>
+                            </div>
+                            
+                            <div class="category-card-price">
+                                À partir de <span>1 200 DA</span>
+                            </div>
+                            
+                            <div class="category-card-actions">
+                                <button class="btn-quick-order" onclick="quickOrder('Cartes de Visite PVC')">
+                                    <i class="fas fa-shopping-cart"></i> Commander
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 8 -->
+                    <div class="category-card" data-format="petit" data-paper="couché">
+                        <div class="category-card-img">
+                            <div class="category-card-overlay"></div>
+                            <img src="assets/HABILLAGE.png" alt="Flyers">
+                        </div>
+                        <div class="category-card-content">
+                            <h3 class="category-card-title">
+                                <i class="fas fa-newspaper"></i> Flyers
+                            </h3>
+                            <p class="category-card-subtitle">
+                                Flyers promotionnels pour vos événements et campagnes marketing. Impression recto ou recto-verso.
+                            </p>
+                            
+                            <div class="category-card-details">
+                                <span class="detail-item">135g couché</span>
+                                <span class="detail-item">A5/A6</span>
+                                <span class="detail-item">Quadrichromie</span>
+                            </div>
+                            
+                            <div class="category-card-price">
+                                À partir de <span>350 DA</span>
+                            </div>
+                            
+                            <div class="category-card-actions">
+                                <button class="btn-quick-order" onclick="quickOrder('Flyers')">
+                                    <i class="fas fa-shopping-cart"></i> Commander
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 9 -->
+                    <div class="category-card" data-format="petit" data-paper="couché">
+                        <div class="category-card-img">
+                            <div class="category-card-overlay"></div>
+                            <img src="assets/img1.png" alt="Dépliants & Brochures">
+                        </div>
+                        <div class="category-card-content">
+                            <h3 class="category-card-title">
+                                <i class="fas fa-book-open"></i> Dépliants & Brochures
+                            </h3>
+                            <p class="category-card-subtitle">
+                                Supports détaillés pour présenter vos produits et services. Formats multiples, pliages personnalisés.
+                            </p>
+                            
+                            <div class="category-card-details">
+                                <span class="detail-item">170g couché</span>
+                                <span class="detail-item">3 volets</span>
+                                <span class="detail-item">Pliage inclus</span>
+                            </div>
+                            
+                            <div class="category-card-price">
+                                À partir de <span>1 800 DA</span>
+                            </div>
+                            
+                            <div class="category-card-actions">
+                                <button class="btn-quick-order" onclick="quickOrder('Dépliants & Brochures')">
+                                    <i class="fas fa-shopping-cart"></i> Commander
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer (Same as index.html) -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="assets/logo.png" alt="LOMPUB Logo" class="footer-logo-img">
+                    </div>
+                    <p>Agence de publicité et communication basée à Batna depuis 2008. Spécialistes en habillage, décoration, design, impression, sérigraphie, enseignes et publicité sur bus.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Services LOMPUB</h3>
+                    <ul>
+                        <li><a href="index.php#services">Habillage (Vitrines, Façades, Véhicules)</a></li>
+                        <li><a href="index.php#services">Décoration & Design</a></li>
+                        <li><a href="index.php#services">Impression & Sérigraphie</a></li>
+                        <li><a href="index.php#services">Enseignes & Pub Bus</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contactez-nous</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> N31, Rue D.E, Batna, Algérie 05000</p>
+                    <p><i class="fas fa-phone"></i> +213 560 33 63 25</p>
+                    <p><i class="fas fa-phone"></i> +213 698 99 86 42</p>
+                    <p><i class="fas fa-envelope"></i> lompubatna@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Samedi - Jeudi: 08h - 18h</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 LOMPUB Batna - Agence de Publicité. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+        
+        menuOverlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Quick order function
+        window.quickOrder = function(productName) {
+            alert(`Commande rapide: ${productName}\n\nVotre produit a été ajouté au panier!\n\nVous pouvez continuer vos achats ou finaliser votre commande.`);
+            
+            // Update cart counter (if exists)
+            const cartCounter = document.querySelector('.cart-counter');
+            if (cartCounter) {
+                let count = parseInt(cartCounter.textContent) || 0;
+                cartCounter.textContent = count + 1;
+                cartCounter.style.display = 'flex';
+            }
+        };
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 150,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

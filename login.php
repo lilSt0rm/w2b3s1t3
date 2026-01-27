@@ -1,0 +1,1239 @@
+<?php
+require_once 'config/database.php';
+require_once 'includes/auth.php';
+
+$error = '';
+$success = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['action'])) {
+        if ($_POST['action'] === 'login') {
+            // ... existing login code ...
+        } elseif ($_POST['action'] === 'signup') {
+            $userData = [
+                'full_name' => $_POST['full_name'] ?? '',
+                'email' => $_POST['email'] ?? '',
+                'phone' => $_POST['phone'] ?? '',
+                'password' => $_POST['password'] ?? '',
+                'company' => $_POST['company'] ?? '',
+                'address' => $_POST['address'] ?? '',
+                'subcontractor_type' => $_POST['subcontractor_type'] ?? ''
+            ];
+            
+            if (registerUser($userData)) {
+                $success = 'Inscription réussie! Vous pouvez maintenant vous connecter.';
+            } else {
+                $error = 'Erreur lors de l\'inscription. Veuillez réessayer.';
+            }
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Sous-traitant - LOMPUB Batna</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary-red: #E63946;
+            --primary-dark: #1D1D1D;
+            --light-dark: #333333;
+            --light-gray: #F5F5F5;
+            --medium-gray: #8A8A8E;
+            --primary-white: #FFFFFF;
+            --gradient-red: linear-gradient(135deg, #E63946 0%, #FF6B6B 100%);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --card-shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        body {
+            background: var(--light-gray);
+            color: var(--primary-dark);
+            font-family: 'Montserrat', sans-serif;
+            padding-top: 70px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Modern Login Container */
+        .modern-login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .login-wrapper {
+            display: flex;
+            max-width: 1100px;
+            width: 100%;
+            background: var(--primary-white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            min-height: 600px;
+        }
+
+        /* Left Panel - Visual */
+        .login-visual {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--light-dark) 100%);
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(230, 57, 70, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
+        }
+
+        .visual-logo {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .visual-logo img {
+            max-width: 120px;
+            height: auto;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+        }
+
+        .visual-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .visual-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-white);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .visual-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 400px;
+        }
+
+        .features-minimal {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .feature-minimal {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-minimal:hover {
+            background: rgba(230, 57, 70, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon-minimal {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-red);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .feature-text-minimal h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary-white);
+            margin-bottom: 4px;
+        }
+
+        .feature-text-minimal p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+        }
+
+        /* Right Panel - Login Form */
+        .login-form-panel {
+            flex: 1;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header-minimal {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .form-header-minimal h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .form-header-minimal p {
+            color: var(--medium-gray);
+            font-size: 1rem;
+        }
+
+        /* Form Tabs */
+        .form-tabs-minimal {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 40px;
+            background: var(--light-gray);
+            padding: 5px;
+            border-radius: 12px;
+        }
+
+        .form-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--medium-gray);
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .form-tab:hover {
+            color: var(--primary-dark);
+        }
+
+        .form-tab.active {
+            background: var(--primary-white);
+            color: var(--primary-dark);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Forms */
+        .auth-form {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group-minimal {
+            margin-bottom: 25px;
+        }
+
+        .form-label-minimal {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 0.9rem;
+        }
+
+        .form-label-minimal span {
+            color: var(--primary-red);
+        }
+
+        .input-wrapper-minimal {
+            position: relative;
+        }
+
+        .form-input-minimal {
+            width: 100%;
+            padding: 16px 20px 16px 48px;
+            background: var(--light-gray);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: var(--primary-dark);
+            transition: all 0.3s;
+        }
+
+        .form-input-minimal:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            background: var(--primary-white);
+            box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.1);
+        }
+
+        .form-input-minimal::placeholder {
+            color: var(--medium-gray);
+        }
+
+        .input-icon-minimal {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--medium-gray);
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .form-input-minimal:focus+.input-icon-minimal {
+            color: var(--primary-red);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0 35px;
+        }
+
+        .remember-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .remember-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            appearance: none;
+            background: var(--light-gray);
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .remember-checkbox input[type="checkbox"]:checked {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+        }
+
+        .remember-checkbox input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .remember-checkbox span {
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+        }
+
+        .forgot-link {
+            color: var(--primary-red);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .forgot-link:hover {
+            color: #FF6B6B;
+            text-decoration: underline;
+        }
+
+        .submit-btn-minimal {
+            background: var(--gradient-red);
+            color: var(--primary-white);
+            border: none;
+            padding: 18px 30px;
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.2);
+        }
+
+        .submit-btn-minimal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(230, 57, 70, 0.3);
+        }
+
+        .submit-btn-minimal:active {
+            transform: translateY(0);
+        }
+
+        .divider-minimal {
+            display: flex;
+            align-items: center;
+            margin: 40px 0;
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+
+        .divider-minimal::before,
+        .divider-minimal::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+
+        .divider-minimal span {
+            padding: 0 20px;
+        }
+
+        .switch-action {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .switch-action p {
+            color: var(--medium-gray);
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .switch-btn {
+            background: transparent;
+            color: var(--primary-dark);
+            border: 2px solid #eee;
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .switch-btn:hover {
+            border-color: var(--primary-red);
+            color: var(--primary-red);
+            background: rgba(230, 57, 70, 0.05);
+        }
+
+        /* Terms Checkbox */
+        .terms-minimal {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(230, 57, 70, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(230, 57, 70, 0.1);
+        }
+
+        .terms-minimal input[type="checkbox"] {
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .terms-minimal label {
+            font-size: 0.85rem;
+            color: var(--medium-gray);
+            line-height: 1.5;
+        }
+
+        .terms-minimal a {
+            color: var(--primary-red);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .terms-minimal a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .login-wrapper {
+                flex-direction: column;
+                max-width: 500px;
+            }
+
+            .login-visual {
+                padding: 40px 30px;
+            }
+
+            .login-form-panel {
+                padding: 40px 30px;
+            }
+
+            .visual-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .modern-login-container {
+                padding: 30px 15px;
+            }
+
+            .login-wrapper {
+                border-radius: 16px;
+            }
+
+            .login-visual,
+            .login-form-panel {
+                padding: 30px 20px;
+            }
+
+            .form-header-minimal h2 {
+                font-size: 1.6rem;
+            }
+
+            .form-tabs-minimal {
+                flex-direction: column;
+            }
+
+            .form-options {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+        /* Footer adjustments */
+        footer {
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="contact-info-top">
+                <div class="contact-item-top">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>N31, Rue D.E, Batna, Algérie 05000</span>
+                </div>
+                <div class="contact-item-top">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>+213 560 33 63 25 / +213 698 99 86 42</span>
+                </div>
+                <div class="contact-item-top">
+                    <i class="fas fa-envelope"></i>
+                    <span>lompubatna@gmail.com</span>
+                </div>
+            </div>
+            <div class="social-top">
+                <a href="#" class="social-link-top">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link-top">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link-top">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed-header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.php" class="logo-container">
+                    <img src="assets/logo.png" alt="LOMPUB Logo" class="logo-img">
+                </a>
+            </div>
+
+            <nav class="desktop-nav">
+                <ul class="desktop-nav-links">
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="index.php#services">Nos services</a></li>
+                    <li><a href="products.php">Produits</a></li>
+                    <li><a href="index.php#about">À propos</a></li>
+                    <li><a href="index.php#contact">Contactez-nous</a></li>
+                </ul>
+
+                <div class="auth-buttons">
+                    <a href="login.php" class="btn-login">Espace Sous-traitant</a>
+                </div>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="mobile-logo">
+                <img src="assets/logo.png" alt="LOMPUB Logo" class="mobile-logo-img">
+            </div>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-contact-info">
+            <div class="mobile-contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">N31, Rue D.E, Batna, Algérie 05000</span>
+                </div>
+            </div>
+            <div class="mobile-contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">+213 560 33 63 25</span>
+                </div>
+            </div>
+            <div class="mobile-contact-item">
+                <i class="fas fa-envelope"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">lompubatna@gmail.com</span>
+                </div>
+            </div>
+            <div class="mobile-contact-item">
+                <i class="fas fa-clock"></i>
+                <div class="mobile-contact-text">
+                    <span class="mobile-contact-value">Samedi - Jeudi: 08h - 18h</span>
+                </div>
+            </div>
+            <div class="mobile-menu-section">
+                <a href="index.php" class="mobile-menu-link">
+                    <i class="fas fa-home"></i>
+                    <span>Accueil</span>
+                </a>
+                <a href="index.php#services" class="mobile-menu-link">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span>Nos services</span>
+                </a>
+                <a href="products.php" class="mobile-menu-link">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Produits</span>
+                </a>
+                <a href="index.php#about" class="mobile-menu-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>À propos</span>
+                </a>
+                <a href="login.php" class="mobile-menu-link">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Espace Sous-traitant</span>
+                </a>
+            </div>
+        </div>
+        <div class="mobile-copyright">
+            <div class="mobile-contact-social">
+                <a href="#" class="mobile-social-link">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="mobile-social-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="mobile-social-link">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Modern Login Container -->
+    <div class="modern-login-container">
+        <div class="login-wrapper">
+            <!-- Left Visual Panel -->
+            <div class="login-visual">
+                <div class="visual-logo">
+                    <img src="assets/logo.png" alt="LOMPUB Logo">
+                </div>
+                <div class="visual-content">
+                    <h2 class="visual-title">Espace Sous-traitant</h2>
+                    <p class="visual-subtitle">
+                        Accédez à votre espace personnel pour gérer vos projets et collaborer avec LOMPUB
+                    </p>
+                </div>
+
+                <div class="features-minimal">
+                    <div class="feature-minimal">
+                        <div class="feature-icon-minimal">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="feature-text-minimal">
+                            <h4>Projets Premium</h4>
+                            <p>Travaillez sur des projets de haute qualité</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-minimal">
+                        <div class="feature-icon-minimal">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="feature-text-minimal">
+                            <h4>Croissance Garantie</h4>
+                            <p>Développez votre entreprise avec LOMPUB</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-minimal">
+                        <div class="feature-icon-minimal">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="feature-text-minimal">
+                            <h4>Sécurité Totale</h4>
+                            <p>Paiements sécurisés et contrats protégés</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Form Panel -->
+            <div class="login-form-panel">
+                <div class="form-header-minimal">
+                    <h2>Bienvenue</h2>
+                    <p>Connectez-vous ou créez un compte pour commencer</p>
+                </div>
+
+                <div class="form-tabs-minimal">
+                    <button class="form-tab active" data-tab="login">
+                        Connexion
+                    </button>
+                    <button class="form-tab" data-tab="signup">
+                        Inscription
+                    </button>
+                </div>
+
+                <!-- Login Form -->
+                <form class="auth-form active" id="loginForm" method="POST">
+                    <input type="hidden" name="action" value="login">
+                    <?php if($error && (!isset($_POST['action']) || $_POST['action'] === 'login')): ?>
+                        <div class="error-message" style="background: #ffebee; color: #c62828; padding: 12px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #c62828;">
+                            <i class="fas fa-exclamation-circle"></i> <?php echo htmlspecialchars($error); ?>
+                        </div>
+                    <?php endif; ?>
+                    <div class="form-group-minimal">
+                        <label class="form-label-minimal" for="loginEmail">
+                            Email ou Téléphone <span>*</span>
+                        </label>
+                        <div class="input-wrapper-minimal">
+                            <input type="text" class="form-input-minimal" id="loginEmail" name="email"
+                                placeholder="votre@email.com ou +213...">
+                            <i class="fas fa-user input-icon-minimal"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group-minimal">
+                        <label class="form-label-minimal" for="loginPassword">
+                            Mot de passe <span>*</span>
+                        </label>
+                        <div class="input-wrapper-minimal">
+                            <input type="password" class="form-input-minimal" id="loginPassword" name="password"
+                                placeholder="Votre mot de passe">
+                            <i class="fas fa-lock input-icon-minimal"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-checkbox">
+                            <input type="checkbox" id="rememberMe">
+                            <span>Se souvenir de moi</span>
+                        </label>
+                        <a href="#" class="forgot-link" id="forgotPassword">
+                            Mot de passe oublié ?
+                        </a>
+                    </div>
+
+                    <button type="submit" class="submit-btn-minimal">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Se connecter</span>
+                    </button>
+
+                    <div class="divider-minimal">
+                        <span>OU</span>
+                    </div>
+
+                    <div class="switch-action">
+                        <p>Nouveau sous-traitant ?</p>
+                        <button type="button" class="switch-btn" id="switchToSignup">
+                            Créez un compte
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Signup Form -->
+                <form class="auth-form" id="signupForm" method="POST">
+                    <input type="hidden" name="action" value="signup">
+                    
+                    <?php if(isset($_POST['action']) && $_POST['action'] === 'signup'): ?>
+                        <?php if($error): ?>
+                            <div class="error-message" style="background: #ffebee; color: #c62828; padding: 12px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #c62828;">
+                                <i class="fas fa-exclamation-circle"></i> <?php echo htmlspecialchars($error); ?>
+                            </div>
+                        <?php elseif($success): ?>
+                            <div class="success-message" style="background: #e8f5e9; color: #2e7d32; padding: 12px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #2e7d32;">
+                                <i class="fas fa-check-circle"></i> <?php echo htmlspecialchars($success); ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    
+                    <div class="form-group-minimal">
+                        <label class="form-label-minimal" for="signupFullName">
+                            Nom Complet <span>*</span>
+                        </label>
+                        <div class="input-wrapper-minimal">
+                            <input type="text" class="form-input-minimal" id="signupFullName" name="full_name"
+                                placeholder="Votre nom et prénom" required>
+                            <i class="fas fa-user input-icon-minimal"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group-minimal">
+                        <label class="form-label-minimal" for="signupEmail">
+                            Email Professionnel <span>*</span>
+                        </label>
+                        <div class="input-wrapper-minimal">
+                            <input type="email" class="form-input-minimal" id="signupEmail" name="email"
+                                placeholder="votre@entreprise.com" required>
+                            <i class="fas fa-envelope input-icon-minimal"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group-minimal">
+                        <label class="form-label-minimal" for="signupPhone">
+                            Téléphone <span>*</span>
+                        </label>
+                        <div class="input-wrapper-minimal">
+                            <input type="tel" class="form-input-minimal" id="signupPhone" name="phone"
+                                placeholder="+213 560 00 00 00" required>
+                            <i class="fas fa-phone input-icon-minimal"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group-minimal">
+                        <label class="form-label-minimal" for="signupPassword">
+                            Mot de passe <span>*</span>
+                        </label>
+                        <div class="input-wrapper-minimal">
+                            <input type="password" class="form-input-minimal" id="signupPassword" name="password"
+                                placeholder="Créez un mot de passe sécurisé" required>
+                            <i class="fas fa-lock input-icon-minimal"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group-minimal">
+                        <label class="form-label-minimal" for="signupCompany">
+                            Nom de la Société <span>*</span>
+                        </label>
+                        <div class="input-wrapper-minimal">
+                            <input type="text" class="form-input-minimal" id="signupCompany" name="company"
+                                placeholder="Nom de votre entreprise" required>
+                            <i class="fas fa-building input-icon-minimal"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group-minimal">
+                        <label class="form-label-minimal" for="signupAddress">
+                            Adresse <span>*</span>
+                        </label>
+                        <div class="input-wrapper-minimal">
+                            <input type="text" class="form-input-minimal" id="signupAddress" name="address"
+                                placeholder="Adresse complète de votre entreprise" required>
+                            <i class="fas fa-map-marker-alt input-icon-minimal"></i>
+                        </div>
+                    </div>
+
+                    <div class="terms-minimal">
+                        <input type="checkbox" id="acceptTerms" required>
+                        <label for="acceptTerms">
+                            J'accepte les <a href="#">conditions générales</a> et la
+                            <a href="#">politique de confidentialité</a> de LOMPUB.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn-minimal">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Créer mon compte</span>
+                    </button>
+
+                    <div class="divider-minimal">
+                        <span>OU</span>
+                    </div>
+
+                    <div class="switch-action">
+                        <p>Déjà un compte ?</p>
+                        <button type="button" class="switch-btn" id="switchToLogin">
+                            Connectez-vous
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="assets/logo.png" alt="LOMPUB Logo" class="footer-logo-img">
+                    </div>
+                    <p>Agence de publicité et communication basée à Batna depuis 2008. Spécialistes en habillage,
+                        décoration, design, impression, sérigraphie, enseignes et publicité sur bus.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Services LOMPUB</h3>
+                    <ul>
+                        <li><a href="index.php#services">Habillage (Vitrines, Façades, Véhicules)</a></li>
+                        <li><a href="index.php#services">Décoration & Design</a></li>
+                        <li><a href="index.php#services">Impression & Sérigraphie</a></li>
+                        <li><a href="index.php#services">Enseignes & Pub Bus</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h3>Contactez-nous</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> N31, Rue D.E, Batna, Algérie 05000</p>
+                    <p><i class="fas fa-phone"></i> +213 560 33 63 25</p>
+                    <p><i class="fas fa-phone"></i> +213 698 99 86 42</p>
+                    <p><i class="fas fa-envelope"></i> lompubatna@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Samedi - Jeudi: 08h - 18h</p>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 LOMPUB Batna - Agence de Publicité. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        menuOverlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Auth Tabs Functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const authTabs = document.querySelectorAll('.form-tab');
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const switchToSignupBtn = document.getElementById('switchToSignup');
+            const switchToLoginBtn = document.getElementById('switchToLogin');
+
+            // Switch to Login
+            function showLoginForm() {
+                authTabs.forEach(tab => {
+                    if (tab.dataset.tab === 'login') {
+                        tab.classList.add('active');
+                    } else {
+                        tab.classList.remove('active');
+                    }
+                });
+
+                loginForm.classList.add('active');
+                signupForm.classList.remove('active');
+            }
+
+            // Switch to Signup
+            function showSignupForm() {
+                authTabs.forEach(tab => {
+                    if (tab.dataset.tab === 'signup') {
+                        tab.classList.add('active');
+                    } else {
+                        tab.classList.remove('active');
+                    }
+                });
+
+                signupForm.classList.add('active');
+                loginForm.classList.remove('active');
+            }
+
+            // Tab click events
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    if (this.dataset.tab === 'login') {
+                        showLoginForm();
+                    } else {
+                        showSignupForm();
+                    }
+                });
+            });
+
+            // Switch button events
+            switchToSignupBtn.addEventListener('click', showSignupForm);
+            switchToLoginBtn.addEventListener('click', showLoginForm);
+
+            // Form submission
+            const loginFormSubmit = document.getElementById('loginForm');
+            const signupFormSubmit = document.getElementById('signupForm');
+
+            loginFormSubmit.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const emailInput = document.getElementById('loginEmail');
+                const passwordInput = document.getElementById('loginPassword');
+
+                // Basic validation
+                if (!emailInput.value.trim()) {
+                    showNotification('Veuillez entrer votre email ou téléphone', 'error');
+                    return;
+                }
+
+                if (!passwordInput.value) {
+                    showNotification('Veuillez entrer votre mot de passe', 'error');
+                    return;
+                }
+
+                const submitBtn = this.querySelector('.submit-btn-minimal');
+                const originalText = submitBtn.innerHTML;
+
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
+                submitBtn.disabled = true;
+
+                // Simulate API call
+                setTimeout(() => {
+                    showNotification('Connexion réussie ! Redirection...', 'success');
+
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+
+                    // Simulate redirection
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.php';
+                    }, 1500);
+                }, 1500);
+            });
+
+            signupFormSubmit.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const fullName = document.getElementById('signupFullName').value;
+                const email = document.getElementById('signupEmail').value;
+                const phone = document.getElementById('signupPhone').value;
+                const password = document.getElementById('signupPassword').value;
+                const company = document.getElementById('signupCompany').value;
+                const address = document.getElementById('signupAddress').value;
+                const subcontractorType = document.getElementById('signupSubcontractorType').value;
+                const acceptTerms = document.getElementById('acceptTerms').checked;
+
+                // Validation
+                if (!fullName || !email || !phone || !password || !company || !address || !subcontractorType) {
+                    showNotification('Veuillez remplir tous les champs obligatoires.', 'error');
+                    return;
+                }
+
+                if (!acceptTerms) {
+                    showNotification('Veuillez accepter les conditions générales.', 'error');
+                    return;
+                }
+
+                if (password.length < 6) {
+                    showNotification('Le mot de passe doit contenir au moins 6 caractères.', 'error');
+                    return;
+                }
+
+                // Email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showNotification('Veuillez entrer une adresse email valide.', 'error');
+                    return;
+                }
+
+                // Show loading state
+                const submitBtn = this.querySelector('.submit-btn-minimal');
+                const originalText = submitBtn.innerHTML;
+
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Création du compte...';
+                submitBtn.disabled = true;
+
+                // Submit the form to PHP
+                this.submit();
+            });
+
+            // Forgot password
+            const forgotPasswordLink = document.getElementById('forgotPassword');
+            forgotPasswordLink.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const email = prompt('Veuillez entrer votre email pour réinitialiser votre mot de passe :');
+                if (email) {
+                    showNotification(`Un email de réinitialisation a été envoyé à ${email}.\nVeuillez vérifier votre boîte de réception.`, 'info');
+                }
+            });
+
+            // Phone number formatting
+            const phoneInput = document.getElementById('signupPhone');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/\D/g, '');
+
+                    if (value.startsWith('0')) {
+                        value = '+213' + value.substring(1);
+                    } else if (value.startsWith('213')) {
+                        value = '+' + value;
+                    } else if (value.length > 0 && !value.startsWith('+')) {
+                        value = '+213' + value;
+                    }
+
+                    e.target.value = value;
+                });
+            }
+
+            // Notification system
+            function showNotification(message, type) {
+                // Remove existing notification
+                const existingNotification = document.querySelector('.notification');
+                if (existingNotification) {
+                    existingNotification.remove();
+                }
+
+                // Create notification
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+
+                const icon = type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ';
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <span class="notification-icon">${icon}</span>
+                        <span class="notification-message">${message}</span>
+                    </div>
+                `;
+
+                // Add styles
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    background: ${type === 'success' ? '#4CAF50' :
+                        type === 'error' ? '#f44336' :
+                            '#2196F3'};
+                    color: white;
+                    padding: 16px 24px;
+                    border-radius: 12px;
+                    z-index: 9999;
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                    animation: slideIn 0.3s ease;
+                    max-width: 400px;
+                    font-weight: 500;
+                `;
+
+                document.body.appendChild(notification);
+
+                // Auto remove after 4 seconds
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }, 4000);
+            }
+
+            // Add keyframes for notification animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+                
+                @keyframes slideOut {
+                    from {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+
+</html>
