@@ -26,10 +26,10 @@
                 </div>
             </div>
             <div class="social-top">
-                <a href="#" class="social-link-top">
+                <a href="https://www.facebook.com/lompub/" class="social-link-top">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-                <a href="#" class="social-link-top">
+                <a href="https://www.instagram.com/lompubdz/" class="social-link-top">
                     <i class="fab fa-instagram"></i>
                 </a>
                 <a href="#" class="social-link-top">
@@ -51,7 +51,7 @@
                 <ul class="desktop-nav-links">
                     <li><a href="index.html">Accueil</a></li>
                     <li><a href="#services">Nos services</a></li>
-                    <li><a href="products.html">Produits</a></li>
+                    <li><a href="#products">Produits</a></li>
                     <li><a href="#about">À propos</a></li>
                     <li><a href="#contact">Contactez-nous</a></li>
                 </ul>
@@ -212,30 +212,26 @@
             <div class="products-grid">
                 <div class="product-card">
                     <div class="product-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/img1.png') center/cover no-repeat;"></div>
-                    <div class="product-info">
+                    <div class="product-info" href="product-details.html">
                         <h3>Cartes de visite</h3>
-                        <button class="btn">Commander</button>
                     </div>
                 </div>
                 <div class="product-card">
                     <div class="product-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/img1.png') center/cover no-repeat;"></div>
                     <div class="product-info">
                         <h3>Flyers</h3>
-                        <button class="btn">Commander</button>
                     </div>
                 </div>
                 <div class="product-card">
                     <div class="product-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/img1.png') center/cover no-repeat;"></div>
-                    <div class="product-info">
+                    <div class="product-info" href="product-details.html">
                         <h3>Bannières</h3>
-                        <button class="btn">Commander</button>
                     </div>
                 </div>
                 <div class="product-card">
                     <div class="product-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/img1.png') center/cover no-repeat;"></div>
-                    <div class="product-info">
+                    <div class="product-info" href="product-details.html">
                         <h3>Posters</h3>
-                        <button class="btn">Commander</button>
                     </div>
                 </div>
             </div>
@@ -243,21 +239,15 @@
             <div class="second-row-products">
                 <div class="large-product-card">
                     <div class="large-product-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/img1.png') center/cover no-repeat;"></div>
-                    <div class="large-product-info">
+                    <div class="large-product-info" href="product-details.html">
                         <h3>Impression Small Format</h3>
-                        <a href="#" class="btn-format" id="smallFormatBtn">
-                            <i class="fas fa-external-link-alt"></i> Affiche ici
-                        </a>
-                    </div>
+                                        </div>
                 </div>
                 <div class="large-product-card">
                     <div class="large-product-img" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/img1.png') center/cover no-repeat;"></div>
-                    <div class="large-product-info">
+                    <div class="large-product-info" href="product-details.html">
                         <h3>Impression Grand Format</h3>
-                        <a href="#" class="btn-format" id="grandFormatBtn">
-                            <i class="fas fa-external-link-alt"></i> Affiche ici
-                        </a>
-                    </div>
+                        </div>
                 </div>
             </div>
             
@@ -491,66 +481,6 @@
             goToSlide(currentSlide + 1);
         }, 6000);
         
-        const orderButtons = document.querySelectorAll('.product-card .btn');
-        let itemCount = 0;
-        
-        orderButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                itemCount++;
-                
-                alert('Service/Produit ajouté au panier!');
-            });
-        });
-        
-        const viewAllProductsBtn = document.getElementById('viewAllProducts');
-        viewAllProductsBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Page "Tous les produits" - En développement. Cette fonctionnalité affichera tous nos produits disponibles.');
-        });
-        
-        const smallFormatBtn = document.getElementById('smallFormatBtn');
-        smallFormatBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Page "Impression Small Format" - En développement. Cette page affichera tous nos produits en petit format.');
-        });
-        
-        const grandFormatBtn = document.getElementById('grandFormatBtn');
-        grandFormatBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Page "Impression Grand Format" - En développement. Cette page affichera tous nos produits en grand format.');
-        });
-        
-        const loginButtons = document.querySelectorAll('.btn-login');
-        loginButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                alert('Page de connexion - En développement');
-            });
-        });
-        
-        const signupButtons = document.querySelectorAll('.btn-signup');
-        signupButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                alert('Page d\'inscription - En développement');
-            });
-        });
-        
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    e.preventDefault();
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 120,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
     </script>
 </body>
 </html>

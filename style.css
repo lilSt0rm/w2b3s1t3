@@ -607,10 +607,8 @@ section {
 /* Image container */
 .service-card img {
     width: 100%;
-    height: 220px;
-    /* adjust as needed */
-    object-fit: cover;
-    /* VERY important for images */
+    height: 220px;          /* adjust as needed */
+    object-fit: cover;     /* VERY important for images */
     display: block;
 }
 
@@ -885,16 +883,14 @@ section {
     gap: 40px;
 }
 
-.contact-info,
-.payment-methods {
+.contact-info, .payment-methods {
     background-color: var(--primary-white);
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
-.contact-info h3,
-.payment-methods h3 {
+.contact-info h3, .payment-methods h3 {
     font-size: 1.5rem;
     margin-bottom: 20px;
     color: var(--primary-black);
@@ -902,8 +898,7 @@ section {
     padding-bottom: 10px;
 }
 
-.contact-info h3::after,
-.payment-methods h3::after {
+.contact-info h3::after, .payment-methods h3::after {
     content: '';
     position: absolute;
     width: 40px;
@@ -990,16 +985,14 @@ footer {
     margin-bottom: 20px;
 }
 
-.footer-links h3,
-.footer-contact h3 {
+.footer-links h3, .footer-contact h3 {
     font-size: 1.3rem;
     margin-bottom: 20px;
     position: relative;
     padding-bottom: 10px;
 }
 
-.footer-links h3::after,
-.footer-contact h3::after {
+.footer-links h3::after, .footer-contact h3::after {
     content: '';
     position: absolute;
     width: 40px;
@@ -1053,13 +1046,13 @@ footer {
         gap: 10px;
         text-align: center;
     }
-
+    
     .contact-info-top {
         flex-wrap: wrap;
         justify-content: center;
         gap: 20px;
     }
-
+    
     .services-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 30px;
@@ -1067,14 +1060,13 @@ footer {
 }
 
 @media (max-width: 992px) {
-    body {
+     body {
         padding-top: 70px;
     }
-
     .top-bar {
         display: none;
     }
-
+    
     header.fixed-header {
         top: 0;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -1083,32 +1075,32 @@ footer {
     .desktop-nav {
         display: none;
     }
-
+    
     .mobile-menu-btn {
         display: block;
     }
-
+    
     .about-content {
         flex-direction: column;
     }
-
+    
     .slide h2 {
         font-size: 2.2rem;
     }
-
+    
     .slide p {
         font-size: 1.1rem;
     }
-
+    
     .second-row-products {
         grid-template-columns: 1fr;
     }
-
+    
     .advantages-single-line {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
     }
-
+    
     .services-grid {
         grid-template-columns: 1fr;
     }
@@ -1117,51 +1109,51 @@ footer {
 @media (max-width: 768px) {
     .top-bar {
         display: none;
-    }
-
+    }    
+    
     header.fixed-header {
         top: 0;
     }
-
+    
     body {
         padding-top: 80px;
     }
-
+    
     .slide {
         height: calc(100vh - 80px);
         min-height: 400px;
         padding: 20px;
     }
-
+    
     .slide h2 {
         font-size: 2rem;
     }
-
+    
     .slide p {
         font-size: 1.1rem;
     }
-
+    
     .slider-btn {
         font-size: 1.5rem;
         padding: 12px;
         width: 45px;
         height: 45px;
     }
-
+    
     section {
         padding: 60px 0;
     }
-
+    
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
-
+    
     .services-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-
+    
     .section-title h2 {
         font-size: 1.8rem;
     }
@@ -1171,64 +1163,63 @@ footer {
     body {
         padding-top: 70px;
     }
-
+    
     .header-container {
         height: 60px;
         padding: 5px 0;
     }
-
+    
     .logo {
         height: 45px;
     }
-
+    
     .logo-img {
         max-width: 150px;
     }
-
+    
     .slide {
         height: calc(100vh - 70px);
         min-height: 350px;
     }
-
+    
     .slide h2 {
         font-size: 1.6rem;
     }
-
+    
     .slide p {
         font-size: 1rem;
     }
-
+    
     .slider-btn {
         display: none;
     }
-
+    
     .products-grid {
         grid-template-columns: 1fr;
     }
-
+    
     .contact-payment-container {
         grid-template-columns: 1fr;
         gap: 30px;
     }
-
-    .contact-info,
-    .payment-methods {
+    
+    .contact-info, .payment-methods {
         padding: 25px;
     }
-
+    
     .mobile-menu {
         max-width: 320px;
     }
-
+    
     .mobile-contact-info {
         padding: 15px;
     }
-
+    
     .mobile-cta-buttons {
         padding: 15px;
         flex-direction: column;
     }
-
+    
     .footer-container {
         grid-template-columns: 1fr;
         gap: 30px;
@@ -1729,15 +1720,15 @@ footer {
         grid-template-columns: 1fr;
         gap: 30px;
     }
-
+    
     .order-summary {
         position: static;
     }
-
+    
     .steps-container {
         gap: 20px;
     }
-
+    
     .step {
         padding: 15px 20px;
     }
@@ -1747,21 +1738,21 @@ footer {
     .breadcrumb {
         margin-top: 70px;
     }
-
+    
     .steps-container {
         flex-direction: column;
         gap: 15px;
     }
-
+    
     .steps-container::before {
         display: none;
     }
-
+    
     .step {
         width: 100%;
         max-width: 300px;
     }
-
+    
     .form-row {
         grid-template-columns: 1fr;
         gap: 15px;
@@ -1772,19 +1763,19 @@ footer {
     .order-form-section {
         padding: 40px 0;
     }
-
+    
     .order-form-container {
         padding: 30px 20px;
     }
-
+    
     .order-summary {
         padding: 25px 20px;
     }
-
+    
     .confirmation-buttons {
         flex-direction: column;
     }
-
+    
     .confirmation-buttons .btn,
     .confirmation-buttons .btn-secondary {
         width: 100%;
@@ -1795,17 +1786,17 @@ footer {
     .breadcrumb-content {
         font-size: 0.8rem;
     }
-
+    
     .step {
         flex-direction: column;
         text-align: center;
         padding: 20px 15px;
     }
-
+    
     .step-icon {
         margin-bottom: 10px;
     }
-
+    
     .order-summary h2,
     .order-form-container h2 {
         font-size: 1.3rem;
@@ -1860,7 +1851,7 @@ footer {
     background: var(--primary-white);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
     transition: all 0.3s ease;
     height: 100%;
     border: 1px solid #eee;
@@ -1871,7 +1862,7 @@ footer {
 
 .category-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
 }
 
 .category-card-img {
@@ -1899,7 +1890,7 @@ footer {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.7));
+    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.7));
 }
 
 .category-card-content {
@@ -1921,13 +1912,7 @@ footer {
     flex-shrink: 0;
 }
 
-.category-card-subtitle {
-    color: var(--medium-gray);
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-    line-height: 1.5;
-    flex-grow: 1;
-}
+
 
 .category-card-price {
     font-size: 1.4rem;
@@ -1943,15 +1928,6 @@ footer {
     font-weight: 400;
 }
 
-.category-card-details {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eee;
-    flex-shrink: 0;
-}
 
 .detail-item {
     background: var(--light-gray);
@@ -1959,12 +1935,6 @@ footer {
     border-radius: 15px;
     font-size: 0.8rem;
     color: var(--dark-gray);
-}
-
-.category-card-actions {
-    display: flex;
-    gap: 10px;
-    flex-shrink: 0;
 }
 
 .btn-customize {
@@ -2063,17 +2033,14 @@ footer {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-
-    .category-card-actions {
-        flex-direction: column;
-    }
+    
 }
 
 @media (max-width: 576px) {
     .category-card-title {
         font-size: 1.1rem;
     }
-
+    
     .category-card-price {
         font-size: 1.2rem;
     }
